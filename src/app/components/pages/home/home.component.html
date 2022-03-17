@@ -1,0 +1,16 @@
+<div class="container first">
+    <h2 class="Location text-center mt-4" *ngIf="data">{{data.name}},{{data.sys.country}}</h2>
+    <app-toggle
+     (click) = "changeUnit()"
+    ></app-toggle>
+   <app-card 
+     *ngIf="data" 
+     day="Today" 
+     [temperature]="current_temperature"
+     [description]="data.weather[0].description"
+     [max_temp]="max_temperature"
+     [min_temp]="min_temperature"
+     [icon]="data.weather[0].icon"
+   ></app-card>
+   <!-- <app-card day="Tomorrow" class="m-4"></app-card> -->
+</div>
