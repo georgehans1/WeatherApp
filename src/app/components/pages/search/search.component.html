@@ -1,0 +1,19 @@
+<div class="container first">
+    <div class="col-10 mx-auto">
+        <form class="d-flex">
+            <input [(ngModel)]="location" class="form-control outline-dark" type="search" placeholder="Search Country/City" aria-label="Search" name="location">
+            <button (click)="getWeatherByLocation()" class="btn btn-outline-dark m-0" type="submit"><i class="fa-solid fa-magnifying-glass-location"></i></button>
+          </form>
+    </div>
+
+    <h2 class="text-center mt-4" *ngIf="data">{{data.name}},{{data.sys.country}}</h2>
+
+    <app-toggle></app-toggle>
+    <app-card *ngIf="data" day="Today"
+    [temperature]="data.main.temp"
+    [description]="data.weather[0].description"
+    [max_temp]="data.main.temp_max"
+    [min_temp]="data.main.temp_min"
+    [icon]="data.weather[0].icon"
+    ></app-card>
+</div>
