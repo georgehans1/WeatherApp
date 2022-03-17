@@ -1,19 +1,67 @@
-<div class="container first">
+<div class="container first mx-auto">
     <div class="col-10 mx-auto">
-        <form class="d-flex">
-            <input [(ngModel)]="location" class="form-control outline-dark" type="search" placeholder="Search Country/City" aria-label="Search" name="location">
-            <button (click)="getWeatherByLocation()" class="btn btn-outline-dark m-0" type="submit"><i class="fa-solid fa-magnifying-glass-location"></i></button>
-          </form>
+        <form class="mx-auto">
+            <div class="col-12 mx-auto d-flex justify-content-center">
+                <input [(ngModel)]="location" class="form-control outline-dark" type="search"
+                    placeholder="Search Country/City" aria-label="Search" name="location">
+                <button (click)="getWeatherByLocation()" class="btn btn-outline-dark m-0" type="submit"><i
+                        class="fa-solid fa-magnifying-glass-location"></i></button>
+            </div>
+
+        </form>
     </div>
 
     <h2 class="text-center mt-4" *ngIf="data">{{data.name}},{{data.sys.country}}</h2>
 
-    <app-toggle></app-toggle>
-    <app-card *ngIf="data" day="Today"
-    [temperature]="data.main.temp"
-    [description]="data.weather[0].description"
-    [max_temp]="data.main.temp_max"
-    [min_temp]="data.main.temp_min"
-    [icon]="data.weather[0].icon"
-    ></app-card>
+    <app-toggle (click)="changeUnit()"></app-toggle>
+    <app-card *ngIf="data" day="Today" [temperature]="temperature.current_temperature"
+        [description]="data.weather[0].description | titlecase" [max_temp]="temperature.max_temperature"
+        [min_temp]="temperature.min_temperature" [icon]="data.weather[0].icon"></app-card>
+
+
+    <section *ngIf="data">
+        <div class="row">
+            <div class="col-6 ">
+                <app-blank-card class=" mx-auto">
+                    <div class="mini-card">
+                        <p class="text-muted"><i class="fa-solid fa-temperature-half"></i> Feels Like</p>
+                        <p class="display-6">{{temperature.feels_like}} <span>°</span></p>
+                    </div>
+                </app-blank-card>
+            </div>
+            <div class="col-6">
+                <app-blank-card class="mx-auto">
+                    <div class="mini-card">
+                        <p class="text-muted"><i class="fa-solid fa-droplet"></i> Humidity</p>
+                        <p class="display-6">{{temperature.humidity }}<span>%</span></p>
+                    </div>
+                </app-blank-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <app-blank-card class="mx-auto">
+                    <div class="mini-card">
+                        <p class="text-muted"><i class="fa-solid fa-wind"></i> Wind</p>
+                        <p class="display-6">{{temperature.wind }}<span> km/h</span></p>
+                    </div>
+                </app-blank-card>
+            </div>
+            <div class="col-6">
+                <app-blank-card class="mx-auto">
+                    <div class="mini-card">
+                        <p class="text-muted"><i class="fa-solid fa-gauge"></i> Pressure</p>
+                        <p class="display-6">{{temperature.pressure}} <span> hPa</span></p>
+                    </div>
+                </app-blank-card>
+            </div>
+        </div>
+
+    </section>
+
+    <app-blank-card *ngIf="error_message && !data">
+        <i class="fa-solid fa-circle-exclamation icon"> </i>
+        <h2 class="display-6 text-center">{{error_message | titlecase}}</h2>
+
+    </app-blank-card>
 </div>

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end">
     <span class="m-2">°C</span>
-    <i (click)="changeSwitch()"  [ngClass]="isCelcius == false?'fa-solid fa-toggle-off toggle2':'fa-solid fa-toggle-on toggle'" ></i>
+    <i (click)="changeSwitch()"  [ngClass]="temperature.isCelcius == true?'fa-solid fa-toggle-off toggle2':'fa-solid fa-toggle-on toggle'" ></i>
     <span class="m-2">°F</span>
 </div>

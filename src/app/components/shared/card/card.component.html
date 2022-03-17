@@ -1,26 +1,27 @@
 <div class="card mx-auto">
-    <div class="content">
-        <div class="row">
-            <div class="col-6 day">
-                <h1>{{day}}</h1>
-            </div> 
-            <div class="col-6 icon">
-                <img src= "{{image}}{{icon}}@2x.png">
-            </div> 
+        <div class="content">
+            <div class="row">
+                <div class="col-6 day">
+                    <h1 class="display-2">{{day}}</h1>
+                </div> 
+                <div class="col-6 icon">
+                    <img src= "{{image}}{{icon}}@2x.png">
+                </div> 
+            </div>
+    
+            <div class="col-12 text-center temperature">
+                <h1 class="display-1">{{temperature}}<span>°</span></h1>
+                <p class="display-6 text-light">{{description}}</p>
+            </div>
+    
+            <div class="row">
+             <div class="col-6 d-flex justify-content-end">
+                <h3>H: <span class="h5">{{max_temp}}</span><span>°</span></h3>
+             </div>
+             <div class="col-6">
+                <h3>L: <span class="h5">{{min_temp}}</span><span>°</span></h3>
+             </div>
+            </div>
         </div>
-
-        <div class="col-12 text-center temperature">
-            <h1>{{temperature}} <span>°</span></h1>
-            <h4>{{description}}</h4>
-        </div>
-
-        <div class="row">
-         <div class="col-6 d-flex justify-content-end">
-            <h3>H: {{max_temp}}<span>°</span></h3>
-         </div>
-         <div class="col-6">
-            <h3>L: {{min_temp}}<span>°</span></h3>
-         </div>
-        </div>
-    </div>
+    <ng-content></ng-content>
 </div>

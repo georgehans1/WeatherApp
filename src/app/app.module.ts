@@ -10,6 +10,7 @@ import { AboutComponent } from './components/pages/about/about.component';
 import { CardComponent } from './components/shared/card/card.component';
 import { ToggleComponent } from './components/shared/toggle/toggle.component';
 import { FormsModule } from '@angular/forms';
+import { BlankCardComponent } from './components/shared/blank-card/blank-card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     SearchComponent,
     AboutComponent,
     CardComponent,
-    ToggleComponent
+    ToggleComponent,
+    BlankCardComponent,
   ],
   imports: [
     BrowserModule,

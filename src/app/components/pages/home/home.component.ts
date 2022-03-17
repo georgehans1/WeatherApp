@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Temperature } from 'src/app/classes/temperature/temperature';
+import { LocationService } from 'src/app/services/location/location.service';
 import { UserPreferencesService } from 'src/app/services/UserPreferences/user-preferences.service';
 import { WeatherService } from 'src/app/services/weather/weather.service';
 
@@ -10,97 +12,99 @@ import { WeatherService } from 'src/app/services/weather/weather.service';
 })
 export class HomeComponent implements OnInit {
   data: any;
-  lat:any;
- lng:any;
- zoom:any;
- isCelcius = true;
- current_temperature:number=0;
- min_temperature:number=0
- max_temperature:number=0
-  temp_celcius: number = 0;
-  temp_fahrenheit: number = 0;
-  max_temp_celcius:number=0;
-  max_temp_fahrenheit:number=0;
-  min_temp_celcius:number=0;
-  min_temp_fahrenheit:number=0;
+  latitude: number = 0;
+  longitude: number = 0;
+  temperature : Temperature = new Temperature()
 
   constructor(
-    private weatherService : WeatherService,
-    private userPreferences : UserPreferencesService
+    private weatherService: WeatherService,
+    private userPreferences: UserPreferencesService,
+    private locationService : LocationService
   ) { }
 
   ngOnInit(): void {
     this.getUserLocation()
-   
+
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.userPreferences.adjustMenuBar()
-   }
+  }
+
   getUserLocation() {
     // get Users current position
-  if (navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.zoom = 16;
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
         this.getCurrentWeather()
         console.log("position", position)
       });
-    }else{
+    } else {
       console.log("User not allowed")
     }
-    
+
   }
 
-  getCurrentWeather(){
-    console.log(this.lat)
-    this.weatherService.getWeatherForCurrentLocation(this.lat,this.lng).subscribe(
-      (data)=>{
-      this.data = data
-      this.current_temperature =  Math.round(this.data.main.feels_like - 273.15)
-      this.min_temperature =  Math.round(this.data.main.temp_min  - 273.15)
-      this.max_temperature =  Math.round(this.data.main.temp_max  - 273.15)
-      this.convertCurrentTemp()
-      this.convertMaxTemp()
-      this.convertMinTemp()
-      console.log(this.data)
+  getCurrentWeather() {
+    this.weatherService.getWeatherForCurrentLocation(this.latitude, this.longitude).subscribe(
+      (data) => {
+        this.data = data;
+        this.temperature.current_temperature = this.data.main.temp;
+        this.temperature.min_temperature = this.data.main.temp_min;
+        this.temperature.max_temperature = this.data.main.temp_max ;
+        this.temperature.description = this.data.weather[0].description;
+        this.temperature.icon = this.data.weather[0].icon;
+        this.temperature.feels_like = this.data.main.feels_like;
+        this.temperature.humidity = this.data.main.humidity;
+        this.temperature.wind = this.data.wind.speed * 3.6;
+        this.temperature.pressure = this.data.main.pressure;
+        this.convertMainTemp();
+        this.convertMaxTemp();
+        this.convertMinTemp();
+        this.convertFeelsLikeTemp();
+        console.log(this.data);
       })
-      
+
   }
 
-   convertCurrentTemp(){
-     this.temp_celcius = this.current_temperature 
-     this.temp_fahrenheit = (this.current_temperature * 9/5) + 32 
-     console.log(this.temp_celcius)
-     console.log(this.temp_fahrenheit)
-   }
-
-   convertMaxTemp(){
-     this.max_temp_celcius = this.max_temperature
-     this.max_temp_fahrenheit =  (this.max_temperature * 9/5) + 32 
-   }
-   convertMinTemp(){
-    this.min_temp_celcius = this.min_temperature
-    this.min_temp_fahrenheit =  (this.min_temperature * 9/5) + 32 
+  convertMainTemp() {
+    this.temperature.temp_celcius = this.temperature.current_temperature;
+    this.temperature.temp_fahrenheit = Math.round((this.temperature.current_temperature * 9 / 5) + 32);
   }
 
-  changeUnit(){
-    this.isCelcius = this.userPreferences.isCelcius
-    if(!this.isCelcius){
-      this.current_temperature = this.temp_celcius
-      this.max_temperature =  this.max_temp_celcius
-      this.min_temperature =  this.min_temp_celcius
+  convertMaxTemp() {
+    this.temperature.max_temp_celcius = this.temperature.max_temperature;
+    this.temperature.max_temp_fahrenheit = Math.round((this.temperature.max_temperature * 9 / 5) + 32);
+  }
+  convertMinTemp() {
+    this.temperature.min_temp_celcius = this.temperature.min_temperature;
+    this.temperature.min_temp_fahrenheit = Math.round((this.temperature.min_temperature * 9 / 5) + 32);
+  }
+
+  convertFeelsLikeTemp(){
+    this.temperature.feels_like_celcius = this.temperature.feels_like
+    this.temperature.feels_like_fahrenheit = Math.round((this.temperature.feels_like * 9 / 5) + 32);
+  }
+
+  changeUnit() {
+    this.temperature.isCelcius = this.userPreferences.isCelcius;
+    if (this.temperature.isCelcius) {
+      this.temperature.current_temperature = this.temperature.temp_celcius;
+      this.temperature.max_temperature = this.temperature.max_temp_celcius;
+      this.temperature.min_temperature = this.temperature.min_temp_celcius;
+      this.temperature.feels_like = this.temperature.feels_like_celcius;
       return
     }
-    if(this.isCelcius){
-    this.current_temperature = this.temp_fahrenheit
-    this.max_temperature =  this.max_temp_fahrenheit
-    this.min_temperature =  this.min_temp_fahrenheit
+    if (!this.temperature.isCelcius) {
+      this.temperature.current_temperature = this.temperature.temp_fahrenheit;
+      this.temperature.max_temperature = this.temperature.max_temp_fahrenheit;
+      this.temperature.min_temperature = this.temperature.min_temp_fahrenheit;
+      this.temperature.feels_like = this.temperature.feels_like_fahrenheit;
 
     }
   }
 
-  
+
 
 
 }

@@ -8,17 +8,12 @@ export class SearchService {
   data: any;
 
   constructor(
-    private http : HttpClient
+    private httpClient : HttpClient
   ) { }
 
   getWeatherByLocation(location:string){
-   return this.http.get("https://api.openweathermap.org/data/2.5/weather?q=" +location+ "&appid=8d65b434e0cdc0da95db65116d086dc0")
+   return this.httpClient.get("https://api.openweathermap.org/data/2.5/weather?q=" +location+ "&appid=8d65b434e0cdc0da95db65116d086dc0&units=metric")
   }
 
-  getsWeatherByLocation(location:string){
-    return this.http.get("https://api.openweathermap.org/data/2.5/weather?q=" +location+ "&appid=8d65b434e0cdc0da95db65116d086dc0").subscribe((data)=>{
-      this.data = data
-      console.log(data)
-    })
-   }
+  
 }

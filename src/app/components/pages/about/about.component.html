@@ -1,3 +1,29 @@
-<div class="container first">
-    <h3 class="text-center">About the WeatherApp</h3>
-</div>
+<main class="container">
+    <section>
+        <div class="container first text-center">
+            <h3>About the WeatherApp</h3>
+            <h5 class="text-muted">A simple WeatherApp built using Angular and the OpenWeatherAPI</h5>
+        </div>
+    </section>
+    <section>
+        <app-blank-card>
+            <h6>Home</h6>
+            <p class="text-muted">
+                The purpose of the home page is to show the weather details of the user's current location.
+                The home page consists of 4 different components. A header which has a hamburger menu toggle, 
+                a card which contains weather information,a mini card which has been duplicated 4 times to show certain weather information and a toggle button which switches between Celcius unit and Fahrenheit unit.
+                The home component uses a Geolocation API which gets the location of the current device you're using
+                 and send this location to the OpenWeatherAPI to then receive information about the weather in your current location.
+            </p>
+        </app-blank-card>
+    </section>
+    <section>
+        <app-blank-card>
+            <h6>Search</h6>
+            <p class="text-muted">
+                The Search consists of 4 components. A header, a card,mini cards and a toggle button just like the home page. It also has a search bar that allows you to 
+                search any location in the world and get the details of the weather in that particular location. 
+            </p>
+        </app-blank-card>
+    </section>
+</main>

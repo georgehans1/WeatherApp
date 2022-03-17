@@ -2,6 +2,8 @@
     margin-top: 20px;
     border-radius: 20px;
     /* background-image: url('../../../../assets/images/sunny.jpg'); */
+    background-color:darkblue;
+    color: white;
 }
 
 .content{

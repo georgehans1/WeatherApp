@@ -1,0 +1,11 @@
+@media only screen and (min-width:400px) {
+    .form-control{
+        max-width: 300px;
+    }
+}
+
+
+.icon{
+    color:red;
+    font-size: 25px;
+}

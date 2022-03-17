@@ -1,16 +1,48 @@
 <div class="container first">
-    <h2 class="Location text-center mt-4" *ngIf="data">{{data.name}},{{data.sys.country}}</h2>
-    <app-toggle
-     (click) = "changeUnit()"
-    ></app-toggle>
-   <app-card 
-     *ngIf="data" 
-     day="Today" 
-     [temperature]="current_temperature"
-     [description]="data.weather[0].description"
-     [max_temp]="max_temperature"
-     [min_temp]="min_temperature"
-     [icon]="data.weather[0].icon"
-   ></app-card>
-   <!-- <app-card day="Tomorrow" class="m-4"></app-card> -->
+  <h2 class="Location text-center mt-4" *ngIf="data">{{data.name}},{{data.sys.country}}</h2>
+  <app-toggle (click)="changeUnit()"></app-toggle>
+  <app-card *ngIf="data" day="Today" [temperature]="temperature.current_temperature"
+    [description]="temperature.description| titlecase" [max_temp]="temperature.max_temperature"
+    [min_temp]="temperature.min_temperature" [icon]="temperature.icon"></app-card>
+
+  <section *ngIf="data">
+    <div class="row">
+      <div class="col-6 ">
+        <app-blank-card class=" mx-auto">
+          <div class="mini-card">
+         <p class="text-muted"><i class="fa-solid fa-temperature-half"></i> Feels Like</p>
+         <p class="display-6">{{temperature.feels_like}} <span>°</span></p>
+          </div>
+        </app-blank-card>
+      </div>
+      <div class="col-6">
+        <app-blank-card class="mx-auto">
+          <div class="mini-card">
+            <p class="text-muted"><i class="fa-solid fa-droplet"></i> Humidity</p>
+            <p class="display-6">{{temperature.humidity }}<span>%</span></p>
+          </div>
+        </app-blank-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <app-blank-card class="mx-auto">
+          <div class="mini-card">
+            <p class="text-muted"><i class="fa-solid fa-wind"></i> Wind</p>
+            <p class="display-6">{{temperature.wind }}<span> km/h</span></p>
+          </div>
+        </app-blank-card>
+      </div>
+      <div class="col-6">
+        <app-blank-card class="mx-auto">
+          <div class="mini-card">
+            <p class="text-muted"><i class="fa-solid fa-gauge"></i> Pressure</p>
+            <p class="display-6">{{temperature.pressure}} <span> hPa</span></p>
+          </div>
+        </app-blank-card>
+      </div>
+    </div>
+
+  </section>
+
 </div>

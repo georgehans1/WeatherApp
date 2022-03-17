@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import * as $ from 'jquery';
+import { SearchService } from '../search/search.service';
 @Injectable({
   providedIn: 'root'
 })
 export class UserPreferencesService {
- isCelcius : boolean = false;
-
-  constructor() { }
-  changeSwitch():boolean{
-    console.log(this.isCelcius)
+ isCelcius : boolean = true;
+  
+  constructor(
+  ) { }
+  
+  hasChangedToCelcius():boolean{
     return this.isCelcius = !this.isCelcius;
   }
 
@@ -19,6 +21,8 @@ export class UserPreferencesService {
 
     }
   }
+  
+
 
 
 }

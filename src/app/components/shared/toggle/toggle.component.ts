@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Temperature } from 'src/app/classes/temperature/temperature';
 import { UserPreferencesService } from 'src/app/services/UserPreferences/user-preferences.service';
 
 @Component({
@@ -8,24 +9,20 @@ import { UserPreferencesService } from 'src/app/services/UserPreferences/user-pr
 })
 export class ToggleComponent implements OnInit {
 @Input() temp : number = 0
-@Output() emitter = new EventEmitter
-@Input() isCelcius :boolean = false;
-  constructor(
+temperature: Temperature = new Temperature
+constructor(
     private userPreferences : UserPreferencesService
   ) { }
 
   ngOnInit(): void {
-    console.log(this.isCelcius)
   }
 
   changeSwitch(){
-     this.isCelcius =  this.userPreferences.changeSwitch()
-     console.log(this.isCelcius)
+     this.temperature.isCelcius =  this.userPreferences.hasChangedToCelcius()
+     console.log(this.temperature.isCelcius )
   }
+  
 
-  // changeUnit(mySwitch:any){
-  //   mySwitch = this.isSwitchedOn
-  //    this.emitter.emit(mySwitch)
-  // }
+
 
 }
