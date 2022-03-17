@@ -1,0 +1,21 @@
+.card{
+    margin-top: 20px;
+    border-radius: 20px;
+    /* background-image: url('../../../../assets/images/sunny.jpg'); */
+}
+
+.content{
+    padding: 10px;
+}
+
+.icon{
+    display: flex;
+    justify-content: end;
+    height: 60px;
+}
+
+@media(min-width:500px){
+    .card{
+        max-width: 500px;
+    }
+}
