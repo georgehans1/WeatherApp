@@ -12,6 +12,8 @@ export class CardComponent implements OnInit {
 @Input() max_temp : number = 0
 @Input() min_temp : number = 0
 @Input()icon : string = "" 
+@Input()unit : string = "" 
+
 image : string = "http://openweathermap.org/img/wn/"
   constructor() { }
 

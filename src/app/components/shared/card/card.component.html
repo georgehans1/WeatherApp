@@ -10,16 +10,16 @@
             </div>
     
             <div class="col-12 text-center temperature">
-                <h1 class="display-1">{{temperature}}<span>°</span></h1>
+                <h1 class="display-1">{{temperature}}<span>°</span><span class="display-6">{{unit}}</span></h1>
                 <p class="display-6 text-light">{{description}}</p>
             </div>
     
             <div class="row">
              <div class="col-6 d-flex justify-content-end">
-                <h3>H: <span class="h5">{{max_temp}}</span><span>°</span></h3>
+                <h3>H: <span class="h5">{{max_temp}}</span><span>°</span><span class="lead">{{unit}}</span></h3>
              </div>
              <div class="col-6">
-                <h3>L: <span class="h5">{{min_temp}}</span><span>°</span></h3>
+                <h3>L: <span class="h5">{{min_temp}}</span><span>°</span><span class="lead">{{unit}}</span></h3>
              </div>
             </div>
         </div>

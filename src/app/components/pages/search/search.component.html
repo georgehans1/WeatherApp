@@ -3,7 +3,7 @@
         <form class="mx-auto">
             <div class="col-12 mx-auto d-flex justify-content-center">
                 <input [(ngModel)]="location" class="form-control outline-dark" type="search"
-                    placeholder="Search Country/City" aria-label="Search" name="location">
+                    placeholder="Search City" aria-label="Search" name="location">
                 <button (click)="getWeatherByLocation()" class="btn btn-outline-dark m-0" type="submit"><i
                         class="fa-solid fa-magnifying-glass-location"></i></button>
             </div>
@@ -11,21 +11,22 @@
         </form>
     </div>
 
-    <h2 class="text-center mt-4" *ngIf="data">{{data.name}},{{data.sys.country}}</h2>
+    <section *ngIf="data &&!isError">
+    <h2 class="text-center mt-4">{{data.name}},{{data.sys.country}}</h2>
 
     <app-toggle (click)="changeUnit()"></app-toggle>
-    <app-card *ngIf="data" day="Today" [temperature]="temperature.current_temperature"
+    <app-card  day="Today" [temperature]="temperature.current_temperature" [unit]="unit"
         [description]="data.weather[0].description | titlecase" [max_temp]="temperature.max_temperature"
-        [min_temp]="temperature.min_temperature" [icon]="data.weather[0].icon"></app-card>
+        [min_temp]="temperature.min_temperature" [icon]="data.weather[0].icon">
+    </app-card>
 
 
-    <section *ngIf="data">
         <div class="row">
             <div class="col-6 ">
                 <app-blank-card class=" mx-auto">
                     <div class="mini-card">
                         <p class="text-muted"><i class="fa-solid fa-temperature-half"></i> Feels Like</p>
-                        <p class="display-6">{{temperature.feels_like}} <span>°</span></p>
+                        <p class="display-6">{{temperature.feels_like}}<span>°</span><span>{{unit}}</span></p>
                     </div>
                 </app-blank-card>
             </div>
@@ -56,12 +57,12 @@
                 </app-blank-card>
             </div>
         </div>
-
     </section>
+  
 
-    <app-blank-card *ngIf="error_message && !data">
+    <app-blank-card *ngIf="isError">
         <i class="fa-solid fa-circle-exclamation icon"> </i>
         <h2 class="display-6 text-center">{{error_message | titlecase}}</h2>
-
     </app-blank-card>
+
 </div>

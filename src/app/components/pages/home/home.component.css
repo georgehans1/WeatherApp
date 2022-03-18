@@ -1,3 +1,10 @@
 .mini-card{
     min-height: 100px !important;
 }
+
+@media only screen and (min-width:500px) {
+ .row{
+  display: flex;
+  justify-content: center;
+ }
+}

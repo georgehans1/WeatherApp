@@ -11,6 +11,7 @@ import { CardComponent } from './components/shared/card/card.component';
 import { ToggleComponent } from './components/shared/toggle/toggle.component';
 import { FormsModule } from '@angular/forms';
 import { BlankCardComponent } from './components/shared/blank-card/blank-card.component';
+import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BlankCardComponent } from './components/shared/blank-card/blank-card.co
     CardComponent,
     ToggleComponent,
     BlankCardComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

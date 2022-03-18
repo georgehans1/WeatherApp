@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   data: any;
   latitude: number = 0;
   longitude: number = 0;
+  unit:string="C"
   temperature : Temperature = new Temperature()
 
   constructor(
@@ -49,14 +50,14 @@ export class HomeComponent implements OnInit {
     this.weatherService.getWeatherForCurrentLocation(this.latitude, this.longitude).subscribe(
       (data) => {
         this.data = data;
-        this.temperature.current_temperature = this.data.main.temp;
-        this.temperature.min_temperature = this.data.main.temp_min;
-        this.temperature.max_temperature = this.data.main.temp_max ;
+        this.temperature.current_temperature = Math.round(this.data.main.temp);
+        this.temperature.min_temperature = Math.round(this.data.main.temp_min);
+        this.temperature.max_temperature = Math.round(this.data.main.temp_max);
         this.temperature.description = this.data.weather[0].description;
         this.temperature.icon = this.data.weather[0].icon;
-        this.temperature.feels_like = this.data.main.feels_like;
+        this.temperature.feels_like = Math.round(this.data.main.feels_like);
         this.temperature.humidity = this.data.main.humidity;
-        this.temperature.wind = this.data.wind.speed * 3.6;
+        this.temperature.wind =  Math.round((this.data.wind.speed * 3.6));
         this.temperature.pressure = this.data.main.pressure;
         this.convertMainTemp();
         this.convertMaxTemp();
@@ -74,16 +75,16 @@ export class HomeComponent implements OnInit {
 
   convertMaxTemp() {
     this.temperature.max_temp_celcius = this.temperature.max_temperature;
-    this.temperature.max_temp_fahrenheit = Math.round((this.temperature.max_temperature * 9 / 5) + 32);
+    this.temperature.max_temp_fahrenheit =  Math.round((this.temperature.max_temperature * 9 / 5) + 32);
   }
   convertMinTemp() {
     this.temperature.min_temp_celcius = this.temperature.min_temperature;
-    this.temperature.min_temp_fahrenheit = Math.round((this.temperature.min_temperature * 9 / 5) + 32);
+    this.temperature.min_temp_fahrenheit =  Math.round((this.temperature.max_temperature * 9 / 5) + 32);
   }
 
   convertFeelsLikeTemp(){
     this.temperature.feels_like_celcius = this.temperature.feels_like
-    this.temperature.feels_like_fahrenheit = Math.round((this.temperature.feels_like * 9 / 5) + 32);
+    this.temperature.feels_like_fahrenheit =  Math.round((this.temperature.feels_like * 9 / 5) + 32);
   }
 
   changeUnit() {
@@ -93,6 +94,7 @@ export class HomeComponent implements OnInit {
       this.temperature.max_temperature = this.temperature.max_temp_celcius;
       this.temperature.min_temperature = this.temperature.min_temp_celcius;
       this.temperature.feels_like = this.temperature.feels_like_celcius;
+      this.unit = "C"
       return
     }
     if (!this.temperature.isCelcius) {
@@ -100,7 +102,7 @@ export class HomeComponent implements OnInit {
       this.temperature.max_temperature = this.temperature.max_temp_fahrenheit;
       this.temperature.min_temperature = this.temperature.min_temp_fahrenheit;
       this.temperature.feels_like = this.temperature.feels_like_fahrenheit;
-
+      this.unit = "F";
     }
   }
 
